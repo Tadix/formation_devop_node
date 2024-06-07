@@ -1,4 +1,7 @@
 const express = require('express');
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+  });
 const app = express();
 
 const commandeRoutes = require('./src/resource/commande');
@@ -9,7 +12,7 @@ app.use(express.json());
 app.use('/commande', commandeRoutes);
 
 
-const port = 3000;
+const port = process.env.PORT || 8001;
 initializeDatabase().then(() => {
     app.listen(port, () => {
         console.log(`Serveur démarré sur http://localhost:${port}`);

@@ -3,12 +3,14 @@ const { Pool } = require('pg');
 // Configuration de la connexion
 const pool = new Pool(
     {
-    user: process.env.POSTGRES_USER,
-    host: process.env.POSTGRES_HOST,
-    database: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD,
-    port: process.env.POSTGRES_PORT,                    
+    user: "postgres",
+    host: "db",
+    database: "postgres",
+    password: "postgres",
+    port: 5432,                    
 });
+
+console.log(pool);
 
 module.exports = pool;
 
