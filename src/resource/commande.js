@@ -9,7 +9,6 @@ const Commande = require('../service/commande');
 router.get('/:id',async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const commande = await Commande.findById(id);
-    console.log("commandesssssssssss2223");
 
 console.log(commande);
     if (commande) {
@@ -22,11 +21,10 @@ console.log(commande);
 
 router.post('/', async (req, res) => {
     const { client, items, status } = req.body;
-    console.log("commandesssssssssss2222");
 
     try {
-        const newCommande = await Commande.create(client, items, status);
-        res.status(201).json(newCommande);
+        await Commande.create(client, items, status);
+        res.status(201).send("Commande created successfully");
     } catch (error) {
         res.status(500).send('Erreur du serveur');
     }

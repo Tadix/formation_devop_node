@@ -11,10 +11,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
+      - NODE_ENV=qa
     depends_on:
-      - db
-    volumes:
-      - .:/usr/src/app
+      - db 
 
   db:
     image: postgres

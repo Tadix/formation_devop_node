@@ -1,39 +1,45 @@
-const pool = require('./db');
+const { Commande } = require("../../models");
 
-class CommandeRepository{
-    static async create(client, items, status) {
-        const date = new Date().toISOString();
-        const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-
-        const result = await pool.query(
-            'INSERT INTO commandes (client, items, total, date, status) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [client, JSON.stringify(items), total, date, status]
-        );
-
-        console.log("insered into table =====");
-
-        return result.rows[0];
-    }
-
-static async findById(id) {
-    const result = await pool.query('SELECT * FROM commandes WHERE id = $1', [id]);
-    if (result.rows.length === 0) {
-        return null;
-    }
-    return result.rows[0];
-}
-
-static async findAll() {
+class CommandeRepository {
+  static async create(client, items, status) {
+    const date = new Date().toISOString();
+    const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     try {
-      const result = await pool.query('SELECT * FROM commandes');
-      if (result.rows.length === 0) {
-        return null;
-      }
-      return result.rows; 
+      await Commande.create({
+        client: client,
+        items: items,
+        total: total,
+        date: date,
+        status: status
+      });
     } catch (err) {
+      console.error('Error creating Commande:', err);
+      throw err; // Rethrow the error so it can be caught by the route handler
+    }
+
+  }
+
+  static async findById(id) {
+    const result = await Commande.findByPk(id).catch((err) => {
       console.error('Erreur lors de la récupération des commandes:', err);
       throw err;
+    });
+
+    console.log(result);
+    if (result === null) {
+      return null;
     }
+    return result;
+  }
+
+  static async findAll() {
+
+    const commnades = await Commande.findAll()
+      .catch((err) => {
+        console.error('Erreur lors de la récupération des commandes:', err);
+        throw err;
+      });
+    return commnades;
   }
 }
 
