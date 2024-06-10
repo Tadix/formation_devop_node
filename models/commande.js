@@ -1,3 +1,4 @@
+
 module.exports=(sequelize,DataTypes)=>{
 
     const Commande = sequelize.define('Commande', {
@@ -24,10 +25,10 @@ module.exports=(sequelize,DataTypes)=>{
         },
         status: {
           type: DataTypes.STRING,
-          allowNull: false
+          allowNull: false,
+          
         }
       }, {
-       
         tableName: 'commandes', 
         timestamps: true 
       });

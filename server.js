@@ -1,5 +1,5 @@
 require('dotenv').config({
-    path: process.env.NODE_ENV === 'qa' ? '.env.qua' : '.env'
+    path: process.env.NODE_ENV === 'qua' ? '.env.qua' : '.env'
   });
 
 const express = require('express');

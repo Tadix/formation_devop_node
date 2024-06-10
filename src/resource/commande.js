@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const Commande = require('../entity/commande');
 const Commande = require('../service/commande');
 
 
@@ -10,7 +9,6 @@ router.get('/:id',async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const commande = await Commande.findById(id);
 
-console.log(commande);
     if (commande) {
         res.json(commande);
     } else {
@@ -44,4 +42,8 @@ router.get('/', async (req, res) => {
       res.status(500).send('Erreur serveur');
     }
   });
+
+  router.get('/env/',async(req,res)=>{
+    res.send(process.env.NODE_ENV);
+  })
 module.exports = router;
