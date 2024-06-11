@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Commande = require('../service/commande');
+const Commande = require('../repository/commande');
 
 
 
@@ -43,7 +43,4 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/env/',async(req,res)=>{
-    res.send(process.env.NODE_ENV);
-  })
 module.exports = router;

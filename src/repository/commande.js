@@ -1,4 +1,4 @@
-const { Commande } = require("../../models");
+const { Commande } = require("../models");
 
 class CommandeRepository {
   static async create(client, items, status) {
